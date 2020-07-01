@@ -20,3 +20,13 @@ code {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.image-modal {
+    width: 80%;
+    max-width: 80%;
+}
+
+.grayscale {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}

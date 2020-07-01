@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
 import { PaginatedImageGallery } from './PaginatedImageGallery';
-import { Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap';
+import { ImageModal } from './ImageModal';
 
 export class GalleryView extends Component {
     static displayName = GalleryView.name;
     
     constructor(props) {
         super(props);
-        this.page = 1;
+        this.modalWidth = 400;
+        this.imageSrc = '';
+
         this.state = { modal: false };
+        this.toggle = this.toggle.bind(this);
     }
 
-    toggle = () => this.setState({ modal: !this.state.modal });
+    toggle() {
+        this.setState(previousState => ({ modal: !previousState.modal }));
+    }
 
     render() {
         return (
             <div>
                 <PaginatedImageGallery onImageClick={event => this.loadAndOpenModal(event.target)} />
-                <Modal>
-
-                </Modal>
+                <ImageModal isOpen={this.state.modal} toggle={this.toggle} src={this.imageSrc} />
             </div>
         );
     }
 
     loadAndOpenModal(element) {
-        if (element.naturalWidth) {
-            const width = element.naturalWidth;
-            this.toggle();
-        }
+        this.imageSrc = element.src;
+        this.toggle();
     }
 }

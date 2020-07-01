@@ -1,8 +1,8 @@
-﻿import React, { PureComponent } from 'react';
+﻿import React, { Component } from 'react';
 import Pagination from '@material-ui/lab/Pagination'
 import { Container, Row, Col, Media } from 'reactstrap';
 
-export class PaginatedImageGallery extends PureComponent {
+export class PaginatedImageGallery extends Component {
     static displayName = PaginatedImageGallery.name;
 
     constructor(props) {
