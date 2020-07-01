@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace ArtistImageLibrary.Tests
 {
-    public class ImageTest
+    public class ImageServiceTest
     {
         private IImageService _imageService;
 
