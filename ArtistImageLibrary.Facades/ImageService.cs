@@ -2,6 +2,7 @@
 using ArtistImageLibrary.Interfaces.Services;
 using ArtistImageLibrary.ServiceModels;
 using System;
+using System.IO;
 
 namespace ArtistImageLibrary.Services
 {
@@ -27,6 +28,11 @@ namespace ArtistImageLibrary.Services
                 PageSize = pageSize,
                 PageCount = (int)Math.Ceiling((double)_imageDataAccess.CountImages() / pageSize)
             };
+        }
+
+        public void SaveImage(Stream fileStream, string extension)
+        {
+            _imageDataAccess.SaveImage(DateTime.UtcNow.ToString("yyyyMMddHHmmssfff"), extension, fileStream);
         }
     }
 }

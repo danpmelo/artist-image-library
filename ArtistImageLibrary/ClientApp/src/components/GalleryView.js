@@ -26,13 +26,17 @@ export class GalleryView extends Component {
     render() {
         return (
             <div>
-                <ImageUploader onUpload={() => this.reloadGallery()} onStartUpload={() => this.closeModalAndSetLoading()} />
+                <ImageUploader
+                    onUpload={() => this.reloadGallery()}
+                    onStartUpload={() => this.closeModalAndSetLoading()}
+                    onError={() => this.stopLoading()} />
                 <PaginatedImageGallery
+                    className="mt-2"
                     onImageClick={event => this.loadAndOpenModal(event.target)}
                     loading={this.state.loading}
                     imageCollection={this.state.imageCollection}
                     page={this.page}
-                    pageChange={() => this.pageChange()} />
+                    pageChange={(page) => this.pageChange(page)} />
                 <ImageModal
                     isOpen={this.state.modal}
                     toggle={this.toggle}
@@ -71,5 +75,7 @@ export class GalleryView extends Component {
         this.setState({modal: false, loading: true});
     }
 
-
+    stopLoading() {
+        this.setState({loading: false});
+    }
 }

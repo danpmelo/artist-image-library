@@ -1,8 +1,10 @@
 ﻿using ArtistImageLibrary.Interfaces.Services;
 using ArtistImageLibrary.ServiceModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ArtistImageLibrary.Controllers
@@ -45,6 +47,24 @@ namespace ArtistImageLibrary.Controllers
             catch (Exception e)
             {
                 _logger.Error(e, $"An error has occurred while deleting the image on folder {path}");
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(IFormFile myFile)
+        {
+            try
+            {
+                using (var fileStream = myFile.OpenReadStream())
+                {
+                    _imageService.SaveImage(fileStream, myFile.FileName.Split('.').Last());
+                    return Ok();
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, $"An error has occurred while uploading an image.");
                 throw;
             }
         }

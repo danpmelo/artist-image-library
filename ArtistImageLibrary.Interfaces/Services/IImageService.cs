@@ -1,4 +1,5 @@
 ﻿using ArtistImageLibrary.ServiceModels;
+using System.IO;
 
 namespace ArtistImageLibrary.Interfaces.Services
 {
@@ -6,5 +7,6 @@ namespace ArtistImageLibrary.Interfaces.Services
     {
         ImageCollection ListImagesByPage(int page, int pageSize);
         void DeleteImage(string path);
+        void SaveImage(Stream fileStream, string extension);
     }
 }

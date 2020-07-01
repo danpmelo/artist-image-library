@@ -10,6 +10,15 @@ namespace ArtistImageLibrary.DataAccess
 {
     public class FileSystemImageStorageDataAccess : IImageStorageDataAccess
     {
+        public FileSystemImageStorageDataAccess()
+        {
+            var filesDirectory = $"{GetApplicationRoot()}/Files/Images/user1";
+            if (!Directory.Exists(filesDirectory))
+            {
+                Directory.CreateDirectory(filesDirectory);
+            }
+        }
+
         public int CountImages()
         {
             var pathToSearch = $"{GetApplicationRoot()}/Files/Images/user1";
@@ -32,7 +41,24 @@ namespace ArtistImageLibrary.DataAccess
             var pathToSearch = $"{root}/Files/Images/user1";
             var imagePaths = Directory.GetFiles(pathToSearch);
 
-            return imagePaths.Skip(skip).Take(take).Select(imagePath => new Image() { Path = imagePath.Replace(root, "").Replace("\\", "/") });
+            return imagePaths.OrderByDescending(fileName => fileName).Skip(skip).Take(take).Select(imagePath => new Image() { Path = imagePath.Replace(root, "").Replace("\\", "/") });
+        }
+
+        public void SaveImage(string fileName, string extension, Stream fileStream)
+        {
+            var baseFileName = fileName;
+            var path = $"{GetApplicationRoot()}/Files/Images/user1";
+
+            for (int index = 0; File.Exists($"{path}/{fileName}.{extension}"); ++index)
+            {
+                fileName = $"{baseFileName}{index}";
+            }
+
+            using (var file = File.Create($"{path}/{fileName}.{extension}"))
+            {
+                fileStream.Seek(0, SeekOrigin.Begin);
+                fileStream.CopyTo(file);
+            }
         }
 
         private string GetApplicationRoot()

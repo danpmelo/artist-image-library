@@ -7,7 +7,7 @@ export class PaginatedImageGallery extends Component {
 
     renderGallery(imageCollection) {
         return (
-            <Container>
+            <Container className={this.props.className}>
                 <Row className="align-items-center">
                     {imageCollection.images.slice(0, 4).map(image =>
                     <Col key={image.name} xs={3}>
