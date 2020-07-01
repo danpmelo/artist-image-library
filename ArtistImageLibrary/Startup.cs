@@ -1,3 +1,7 @@
+using ArtistImageLibrary.Services;
+using ArtistImageLibrary.Interfaces.Services;
+using ArtistImageLibrary.Interfaces.DataAccess;
+using ArtistImageLibrary.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace ArtistImageLibrary
 {
@@ -20,6 +25,18 @@ namespace ArtistImageLibrary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var imageStorageType = Configuration["ImageStorage:Name"];
+            if (imageStorageType == "FileSystem")
+            {
+                services.AddSingleton<IImageStorageDataAccess, FileSystemImageStorageDataAccess>();
+            }
+            //else for other types of storage to be used in the future
+
+            services.AddSingleton<IImageService, ImageService>();
+
+            services.AddSingleton<ILogger>(new LoggerConfiguration()
+                     .ReadFrom.Configuration(Configuration)
+                     .CreateLogger());
 
             services.AddControllersWithViews();
 

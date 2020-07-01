@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ArtistImageLibrary
+/ArtistImageLibrary/ClientApp/public/Files
+/ArtistImageLibrary.Entities/bin
+/ArtistImageLibrary.Entities/obj
+/ArtistImageLibrary.Facades/bin
+/ArtistImageLibrary.Facades/obj
+/ArtistImageLibrary.Interfaces/bin
+/ArtistImageLibrary.Interfaces/obj
+/ArtistImageLibrary.ServiceModels/bin
+/ArtistImageLibrary.ServiceModels/obj
+/ArtistImageLibrary.Services/bin
+/ArtistImageLibrary.Services/obj
+/ArtistImageLibrary.Tests/bin
+/ArtistImageLibrary.Tests/obj
