@@ -9,5 +9,6 @@ namespace ArtistImageLibrary.Interfaces.DataAccess
     {
         IEnumerable<Image> ListImages(int skip, int take);
         int CountImages();
+        void Delete(string path);
     }
 }

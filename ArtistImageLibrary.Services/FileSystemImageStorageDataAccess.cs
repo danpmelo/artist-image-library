@@ -17,13 +17,22 @@ namespace ArtistImageLibrary.DataAccess
             return Directory.GetFiles(pathToSearch).Length;
         }
 
+        public void Delete(string path)
+        {
+            var root = GetApplicationRoot();
+            if (File.Exists($"{root}{path}"))
+            {
+                File.Delete($"{root}{path}");
+            }
+        }
+
         public IEnumerable<Image> ListImages(int skip, int take)
         {
             var root = GetApplicationRoot();
             var pathToSearch = $"{root}/Files/Images/user1";
             var imagePaths = Directory.GetFiles(pathToSearch);
 
-            return imagePaths.Skip(skip).Take(take).Select(imagePath => new Image() { Name = imagePath.Replace("\\", "/").Split('/').Last(), Path = imagePath.Replace(root, "").Replace("\\", "/") });
+            return imagePaths.Skip(skip).Take(take).Select(imagePath => new Image() { Path = imagePath.Replace(root, "").Replace("\\", "/") });
         }
 
         private string GetApplicationRoot()

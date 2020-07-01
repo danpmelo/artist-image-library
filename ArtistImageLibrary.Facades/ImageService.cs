@@ -14,6 +14,11 @@ namespace ArtistImageLibrary.Services
             _imageDataAccess = imageDataAccess;
         }
 
+        public void DeleteImage(string path)
+        {
+            _imageDataAccess.Delete(path);
+        }
+
         public ImageCollection ListImagesByPage(int page, int pageSize)
         {
             return new ImageCollection()
